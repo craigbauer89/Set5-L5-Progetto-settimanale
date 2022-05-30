@@ -29,10 +29,11 @@ visibility: visible;
 
 #griglia>div {
     /* dimensioni e margini */
-    width: 22%;
     background-color: #b80adbdc;
     border: 1px solid #3889c4;
     border-radius: 10px;
+    width: 22%;
+
 }
 
 .timer {
@@ -56,7 +57,7 @@ visibility: visible;
 
 .show {
     /* agganciare animation-name rotazione carta */
-    animation-name: rotazione carta;
+    animation-name: rotazioneCarta;
     animation-duration: .5s;
     background-color: white;
     border: 1px solid #3889c4;
@@ -145,7 +146,7 @@ visibility: visible;
       }
     }
 
-@keyframes rotazione-carta { /* animazione quando ruota la carta */
+@keyframes rotazioneCarta { /* animazione quando ruota la carta */
 
     from {
         transform: perspective(200px) rotate3d(0, 1, 0, 90deg);

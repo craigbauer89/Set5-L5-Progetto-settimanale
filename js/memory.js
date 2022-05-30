@@ -14,7 +14,7 @@ document.body.onload = startGame();
 var interval;
 var find = document.getElementsByClassName("find");
 var modal = document.getElementById("modal");
-var timer = document.querySelector("timer");
+var timer = document.getElementsByClassName("timer");
 
 
 //una funzione che serve a mescolare in modo random gli elementi dell'array che viene passato 
@@ -46,40 +46,36 @@ function playAgain() {
 // chiama la funzione timer e associa a tutti gli elementi (div) di classe icon l'evento click e le due funzioni definit sotto
 
 
-// _________MY ADDITION__________
-
-
-
 function startGame(){  
-    
-    clearInterval(interval);
-    newarray = [];
+   
     var arrayShuffle = shuffle(arrayAnimali);
-
-    var cards = document.getElementById('griglia');
-    while (cards.hasChildNodes()) {  
-        cards.removeChild(lista.firstChild);
+  
+    clearInterval(interval);
+  
+    var card = document.getElementById('griglia');
+    while (card.hasChildNodes()) {  
+        card.removeChild(card.firstChild);
     }
-
-    for(var i = 0; i < 24; i++){    
-        var card = document.createElement('div');
-        card.className = 'icon';
+  
+     for(var i = 0; i < 24; i++){    
+        var cardcontainer = document.createElement('div');
+        var cards = document.createElement('div');
+        cards.className = 'icon';
         document.getElementById('griglia')
-           .appendChild(card);
-           card.innerHTML = arrayShuffle[i];  
+           .appendChild(cardcontainer).appendChild(cards);
+           cards.innerHTML = arrayShuffle[i];
       }
     
     timer();
-
+  
   
     for (var i = 0; i < icons.length; i++){
       icons[i].addEventListener("click", displayIcon);
-      icons[i].addEventListener("click", message);
+      icons[i].addEventListener("click", openModal);
     }
-
-
   
   }
+
 
 
 function displayIcon() {
@@ -138,8 +134,8 @@ function message(){
     if (find.length == 24){
         clearInterval(interval);
         modal.classList.add("active");
-        document.getElementById("totalTime").innerHTML = timer.innerHTML;
-        closeModal();
+        document.getElementById("tempoTrascorso").innerHTML = timer.innerHTML;
+        closemessage();
     }
   }
 
@@ -157,22 +153,27 @@ function message(){
 // una funzione che calcola il tempo e aggiorna il contenitore sotto
 
 function timer(){
-    interval = setInterval(setTime(),1000);
-        
-    function setTime(){
-        var second = 0;
-        var minute = 0;
-        var hours = 0;
-        timer.innerHTML = 'Time: ' + minute + " mins " + second + " secs";
-        s++;
-        if(second == 60){
-            minute++;
-            second = 0;
+        let data = new Date(0);
+        let hours1 = data.getUTCHours();
+        let mins1 = data.getUTCMinutes();
+        let secs1 = data.getUTCSeconds();
+        h1 = leadingzero(hours1);
+        m1 = leadingzero(mins1);
+        s1 = leadingzero(secs1);
+        interval = setInterval(setTime(),1000);
+        function setTime(){
+        timer.innerHTML = 'Tempo: ' + h1 + 'hour' + m1 + 'min'+ s1 + " sec";
+        s1++;
+        if(s1 == 60){
+            m1++;
+            s1 = 0;
         }
-        if(minute == 60){
-            hours++;
-            minute = 0;
+        if(m1 == 60){
+            h1++;
+            m1 = 0;
         }
     }
-  
+    
 }
+
+
